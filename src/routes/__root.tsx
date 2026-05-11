@@ -7,7 +7,7 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import { Phone, Menu } from "lucide-react";
+import { Phone, Menu, X } from "lucide-react";
 import { useState } from "react";
 
 import appCss from "../styles.css?url";
@@ -16,9 +16,9 @@ function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-7xl">404</h1>
-        <p className="mt-4 text-muted-foreground">This page is on shaky ground.</p>
-        <Link to="/" className="mt-6 inline-block bg-primary px-6 py-3 font-bold text-primary-foreground">
+        <h1 className="text-7xl font-bold">404</h1>
+        <p className="mt-4 text-muted-foreground">This page doesn't exist.</p>
+        <Link to="/" className="mt-6 inline-block rounded-lg bg-primary px-6 py-3 font-semibold text-primary-foreground">
           Back home
         </Link>
       </div>
@@ -32,11 +32,11 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4 text-center">
       <div>
-        <h1 className="text-3xl">Something cracked</h1>
+        <h1 className="text-3xl font-bold">Something went wrong</h1>
         <p className="mt-2 text-muted-foreground">{error.message}</p>
         <button
           onClick={() => { router.invalidate(); reset(); }}
-          className="mt-6 bg-primary px-6 py-3 font-bold text-primary-foreground"
+          className="mt-6 rounded-lg bg-primary px-6 py-3 font-semibold text-primary-foreground"
         >
           Try again
         </button>
@@ -70,6 +70,20 @@ function RootShell({ children }: { children: React.ReactNode }) {
   );
 }
 
+function Logo() {
+  return (
+    <Link to="/" className="flex items-center gap-2.5">
+      <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+        <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+      </div>
+      <div className="leading-tight">
+        <div className="text-base font-bold tracking-tight">The Crack Guys</div>
+        <div className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">Foundation · Crawlspace · Water</div>
+      </div>
+    </Link>
+  );
+}
+
 function Header() {
   const [open, setOpen] = useState(false);
   const links = [
@@ -80,38 +94,36 @@ function Header() {
     { to: "/contact", label: "Contact" },
   ] as const;
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-secondary text-secondary-foreground">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6">
-        <Link to="/" className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center bg-primary font-display text-xl text-primary-foreground">CG</div>
-          <div className="leading-tight">
-            <div className="font-display text-lg tracking-wide">The Crack Guys</div>
-            <div className="text-[10px] uppercase tracking-[0.2em] text-secondary-foreground/60">Foundation · Crawlspace · Water</div>
-          </div>
-        </Link>
-        <nav className="hidden items-center gap-8 md:flex">
+    <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3.5 sm:px-6">
+        <Logo />
+        <nav className="hidden items-center gap-1 md:flex">
           {links.map(l => (
-            <Link key={l.to} to={l.to} className="text-sm font-medium uppercase tracking-wider text-secondary-foreground/80 transition-colors hover:text-primary"
-              activeProps={{ className: "text-primary" }} activeOptions={{ exact: l.to === "/" }}>
+            <Link key={l.to} to={l.to}
+              className="rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+              activeProps={{ className: "rounded-md px-3 py-2 text-sm font-semibold text-foreground bg-secondary" }}
+              activeOptions={{ exact: l.to === "/" }}>
               {l.label}
             </Link>
           ))}
         </nav>
-        <a href="tel:2564482018" className="hidden items-center gap-2 bg-primary px-5 py-3 font-bold text-primary-foreground transition-transform hover:scale-105 md:flex">
-          <Phone className="h-4 w-4" /> (256) 448-2018
-        </a>
+        <div className="hidden items-center gap-3 md:flex">
+          <a href="tel:2564482018" className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90">
+            <Phone className="h-4 w-4" /> (256) 448-2018
+          </a>
+        </div>
         <button className="md:hidden" onClick={() => setOpen(!open)} aria-label="Menu">
-          <Menu className="h-6 w-6" />
+          {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
       </div>
       {open && (
-        <div className="border-t border-white/10 px-4 py-4 md:hidden">
+        <div className="border-t border-border bg-background px-4 py-3 md:hidden">
           {links.map(l => (
-            <Link key={l.to} to={l.to} onClick={() => setOpen(false)} className="block py-2 text-sm uppercase tracking-wider">
+            <Link key={l.to} to={l.to} onClick={() => setOpen(false)} className="block rounded-md px-3 py-2.5 text-sm font-medium hover:bg-secondary">
               {l.label}
             </Link>
           ))}
-          <a href="tel:2564482018" className="mt-3 flex items-center justify-center gap-2 bg-primary px-5 py-3 font-bold text-primary-foreground">
+          <a href="tel:2564482018" className="mt-2 flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground">
             <Phone className="h-4 w-4" /> (256) 448-2018
           </a>
         </div>
@@ -122,29 +134,29 @@ function Header() {
 
 function Footer() {
   return (
-    <footer className="bg-secondary text-secondary-foreground">
-      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 md:grid-cols-4">
+    <footer className="border-t border-border bg-surface">
+      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-4">
         <div className="md:col-span-2">
-          <div className="font-display text-3xl">The Crack Guys</div>
-          <p className="mt-3 max-w-sm text-sm text-secondary-foreground/70">
-            Family-owned foundation, crawlspace and waterproofing experts. Serving Quinton and nearby areas — 24 hours a day.
+          <Logo />
+          <p className="mt-4 max-w-sm text-sm text-muted-foreground">
+            Family-owned foundation, crawlspace and waterproofing experts. Serving Quinton and nearby areas — open 24 hours.
           </p>
-          <a href="tel:2564482018" className="mt-6 inline-flex items-center gap-2 bg-primary px-5 py-3 font-bold text-primary-foreground">
-            <Phone className="h-4 w-4" /> Call (256) 448-2018
+          <a href="tel:2564482018" className="mt-5 inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground hover:bg-primary/90">
+            <Phone className="h-4 w-4" /> (256) 448-2018
           </a>
         </div>
         <div>
-          <div className="mb-4 text-xs uppercase tracking-[0.2em] text-primary">Hours</div>
-          <p className="text-sm text-secondary-foreground/80">Open 24 hours<br/>7 days a week</p>
-          <p className="mt-3 text-sm text-secondary-foreground/80">Typically replies within 1 day</p>
+          <div className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Hours</div>
+          <p className="text-sm">Open 24 hours<br/>7 days a week</p>
+          <p className="mt-2 text-sm text-muted-foreground">Replies within 1 day</p>
         </div>
         <div>
-          <div className="mb-4 text-xs uppercase tracking-[0.2em] text-primary">Service Area</div>
-          <p className="text-sm text-secondary-foreground/80">Quinton, AL & surrounding areas</p>
+          <div className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Service Area</div>
+          <p className="text-sm">Quinton, AL & surrounding areas</p>
         </div>
       </div>
-      <div className="border-t border-white/10 px-4 py-6 text-center text-xs text-secondary-foreground/50">
-        © {new Date().getFullYear()} The Crack Guys. Family-owned & operated.
+      <div className="border-t border-border px-4 py-5 text-center text-xs text-muted-foreground">
+        © {new Date().getFullYear()} The Crack Guys. Family-owned & operated · Licensed & insured.
       </div>
     </footer>
   );
