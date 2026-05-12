@@ -9,6 +9,7 @@ import {
 } from "@tanstack/react-router";
 import { Phone, Menu } from "lucide-react";
 import { useState } from "react";
+import logo from "@/assets/logo.png";
 
 import appCss from "../styles.css?url";
 
