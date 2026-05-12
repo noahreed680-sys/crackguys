@@ -84,11 +84,7 @@ function Header() {
     <header className="sticky top-0 z-50 border-b border-border bg-secondary text-secondary-foreground">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6">
         <Link to="/" className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center bg-primary font-display text-xl text-primary-foreground">CG</div>
-          <div className="leading-tight">
-            <div className="font-display text-lg tracking-wide">The Crack Guys</div>
-            <div className="text-[10px] uppercase tracking-[0.2em] text-secondary-foreground/60">Foundation · Crawlspace · Water</div>
-          </div>
+          <img src={logo} alt="The Crack Guys" width={160} height={56} className="h-12 w-auto bg-white px-2 py-1" />
         </Link>
         <nav className="hidden items-center gap-8 md:flex">
           {links.map(l => (
