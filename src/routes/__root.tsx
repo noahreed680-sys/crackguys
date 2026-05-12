@@ -11,6 +11,7 @@ import { Phone, Menu, X } from "lucide-react";
 import { useState } from "react";
 
 import appCss from "../styles.css?url";
+import logoImg from "@/assets/logo.png";
 
 function NotFoundComponent() {
   return (
