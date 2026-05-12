@@ -122,9 +122,9 @@ function Footer() {
     <footer className="bg-secondary text-secondary-foreground">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 md:grid-cols-4">
         <div className="md:col-span-2">
-          <div className="font-display text-3xl">The Crack Guys</div>
-          <p className="mt-3 max-w-sm text-sm text-secondary-foreground/70">
-            Family-owned foundation, crawlspace and waterproofing experts. Serving Quinton and nearby areas — 24 hours a day.
+          <img src={logo} alt="The Crack Guys" width={200} height={70} className="h-16 w-auto bg-white px-3 py-2" />
+          <p className="mt-4 max-w-sm text-sm text-secondary-foreground/70">
+            Good people. Great results. Family-owned foundation, crawlspace and waterproofing experts. Serving Quinton and nearby areas — 24 hours a day.
           </p>
           <a href="tel:2564482018" className="mt-6 inline-flex items-center gap-2 bg-primary px-5 py-3 font-bold text-primary-foreground">
             <Phone className="h-4 w-4" /> Call (256) 448-2018
