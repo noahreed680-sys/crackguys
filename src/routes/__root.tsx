@@ -73,13 +73,7 @@ function RootShell({ children }: { children: React.ReactNode }) {
 function Logo() {
   return (
     <Link to="/" className="flex items-center gap-2.5">
-      <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-        <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-      </div>
-      <div className="leading-tight">
-        <div className="text-base font-bold tracking-tight">The Crack Guys</div>
-        <div className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">Foundation · Crawlspace · Water</div>
-      </div>
+      <img src={logoImg} alt="The Crack Guys" width={160} height={48} className="h-11 w-auto" />
     </Link>
   );
 }
